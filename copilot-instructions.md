@@ -10,6 +10,7 @@
 - **Follow the phase-based roadmap** when implementing new features
 - **Adhere to quality metrics** defined in this document
 - **When uncertain**, ask clarifying questions rather than assuming
+- **Delivery method upon completion***, Briefly provide the code modifications made. Also, if you generate new documentation that is not previously declared in the necessary documentation, avoid doing so and only respond briefly in the chat to optimize token usage with AI.
 
 ### For Developers
 - Review this document before starting work on any feature
@@ -34,6 +35,7 @@ The application must run locally, with easy installation and execution for end-u
   - Native fetch API for Facebook Graph API calls (no SDK to reduce bundle size).
   - Framer Motion for overlay animations.
   - react-countdown-timer for timers.
+  - node-onvif or viscajs for PTZ camera control (VISCA, Pelco-D, ONVIF protocols).
   - Capacitor.js (future mobile expansion).
 
 ## Key Features
@@ -44,7 +46,8 @@ The application must run locally, with easy installation and execution for end-u
 5. **URL Output for Browser**: Overlays are emitted via a local URL (e.g., `localhost:3000/overlay`), compatible with OBS, Streamyard, and other streaming software via browser source.
 6. **Easy Local Installation**: Installable desktop app (.exe/.dmg) with no technical dependencies for end-users.
 7. **Local-First Architecture**: Everything works offline except Facebook API calls (which require internet).
-8. **Future Mobile Expansion**: Roadmap for Android/iOS support via Capacitor.js.
+8. **PTZ Camera Control**: Direct control of PTZ cameras via VISCA, Pelco-D, ONVIF, and HTTP protocols from the control panel.
+9. **Future Mobile Expansion**: Roadmap for Android/iOS support via Capacitor.js.
 
 ## Competitive Differentiators
 StreamCtrl.app stands out from competitors (OBS Studio, Streamlabs, TriCaster, CasparCG, Streamyard) by combining:
@@ -735,7 +738,14 @@ if (isDev) {
 - Design overlay components: lower thirds, supers, titles with base styles.
 - Integrate Framer Motion for entry/exit overlay animations.
 - Implement functional timers/chronometers with panel control.
-
+### Phase 2.5 — PTZ Camera Control
+**Goal**: Control PTZ cameras directly from the control panel.
+- Implement protocol handlers: VISCA (Sony), Pelco-D/P, ONVIF, HTTP/REST APIs, UVC PTZ.
+- Design camera control panel: presets, pan/tilt/zoom controls, focus.
+- Support multiple cameras with profiles (IP, port, protocol, credentials).
+- Save camera presets in SQLite for quick recall.
+- Virtual joystick or keyboard shortcuts for camera control.
+- Auto-discovery for ONVIF cameras on local network.
 ### Phase 3 — Graphics Generation with Templates
 **Goal**: User selects a template, inputs data, and the graphic is auto-generated.
 - Design pre-established template system (bars, scores, statistics, etc.).
@@ -774,6 +784,8 @@ if (isDev) {
 - Community template marketplace.
 - Integrated transmission analytics.
 - Export/Import configurations between devices.
+- Advanced PTZ features: auto-tracking, multi-camera switching, camera macros.
+- NDI camera support with tally lights.
 
 ---
 
