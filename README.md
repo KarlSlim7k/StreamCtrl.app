@@ -74,7 +74,7 @@ Sin dependencia de la nube. Sin suscripciones mensuales. Sin configuraciones com
 - **Fácil de Usar**: Interfaz intuitiva, no se requiere conocimiento técnico
 - **Gratis para Siempre**: Sin suscripciones, sin costos ocultos
 
-### Para Pequeños Estudios e Iglesias
+### Para Pequeños Estudios
 - **Solución Todo-en-Uno**: Superposiciones + gráficos + social + control de cámara
 - **Amigable con el Presupuesto**: Resultados profesionales sin precios profesionales
 - **Confiable**: Procesamiento local significa sin interrupciones de internet durante eventos en vivo
@@ -104,7 +104,6 @@ A diferencia de otras herramientas de streaming, StreamCtrl.app combina:
 
 - 🎮 **Streamers de Juegos**: Muestra puntuaciones, temporizadores y comentarios de espectadores
 - 📺 **Creadores de Contenido**: Superposiciones profesionales para YouTube y Twitch
-- ⛪ **Iglesias y Eventos**: Títulos de sermones, anuncios e interacciones en vivo
 - 🎓 **Educadores**: Muestra preguntas, encuestas y gráficos educativos
 - 🏢 **Transmisiones Corporativas**: Branding profesional y presentaciones
 - 🎙️ **Podcasters**: Elementos visuales para podcasts de video
@@ -165,33 +164,7 @@ Pulido, pruebas y lanzamiento oficial
 - Características avanzadas de IA
 - Sistema de plugins
 
-## 🤝 Contribuyendo
-
-¡StreamCtrl.app se está construyendo en abierto! Damos la bienvenida a contribuciones de:
-
-- **Desarrolladores**: Contribuciones de código, correcciones de bugs e implementaciones de características
-- **Diseñadores**: Mejoras de UI/UX y diseños de plantillas
-- **Probadores**: Reportes de bugs y retroalimentación
-- **Traductores**: Ayúdanos a llegar a una audiencia global
-- **Creadores de Contenido**: Comparte tus casos de uso y solicitudes de características
-
-Más detalles sobre cómo contribuir estarán disponibles una vez que el proyecto llegue a la Fase 5.
-
-## 📄 Licencia
-
-StreamCtrl.app es software de código abierto licenciado bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para detalles.
-
-## 💖 Apoya el Proyecto
-
-StreamCtrl.app se desarrolla con pasión y se pone a disposición de forma gratuita. Si lo encuentras útil:
-
-- ⭐ **Estrella este repositorio** para mostrar tu apoyo
-- 🐛 **Reporta bugs** para ayudarnos a mejorar
-- 💡 **Sugiere características** para dar forma al futuro
-- 📢 **Comparte con amigos** que podrían beneficiarse
-- 🤝 **Contribuye** código, diseños o documentación
-
-## 📞 Contacto y Comunidad
+## 📞 Contacto
 
 - **Issues de GitHub**: [Reporta bugs o solicita características](https://github.com/KarlSlim7k/StreamCtrl.app/issues)
 - **Discusiones**: [Únete a la conversación](https://github.com/KarlSlim7k/StreamCtrl.app/discussions)
