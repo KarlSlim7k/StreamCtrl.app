@@ -10,7 +10,7 @@
 [![Status: In Development](https://img.shields.io/badge/Status-In%20Development-yellow.svg)]()
 [![Platform: Windows | macOS | Linux](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)]()
 
-[Características](#características) • [¿Por qué StreamCtrl?](#por-qué-streamctrl) • [Primeros Pasos](#primeros-pasos) • [Hoja de Ruta](#hoja-de-ruta) • [Contribuyendo](#contribuyendo)
+[Características](#características) • [¿Por qué StreamCtrl?](#por-qué-streamctrl) • [Primeros Pasos](#primeros-pasos) • [Hoja de Ruta](#hoja-de-ruta) •
 
 </div>
 
