@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -23,7 +23,21 @@ function resolveMigrationDirectory(directory?: string | URL): string {
     return fileURLToPath(directory);
   }
 
-  return directory ?? fileURLToPath(new URL("./migrations/", import.meta.url));
+  if (directory) {
+    return directory;
+  }
+
+  const adjacent = fileURLToPath(new URL("./migrations/", import.meta.url));
+  if (existsSync(adjacent)) {
+    return adjacent;
+  }
+
+  const sourceFallback = fileURLToPath(new URL("../src/migrations/", import.meta.url));
+  if (existsSync(sourceFallback)) {
+    return sourceFallback;
+  }
+
+  return adjacent;
 }
 
 export function readMigrations(directory?: string | URL): Migration[] {
