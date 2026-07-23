@@ -34,6 +34,7 @@ export interface AcceptedTransition {
   eventPayload: unknown;
   occurredAt: string;
   projection: unknown;
+  supersedesEventId?: string;
 }
 
 export interface RejectedCommand {
@@ -161,7 +162,7 @@ export class MatchRepository {
           payloadJson,
           revision: resultingRevision,
           occurredAt: transition.occurredAt,
-          supersedesEventId: null
+          supersedesEventId: transition.supersedesEventId ?? null
         });
         this.#insertReceipt.run({
           commandId: transition.commandId,
@@ -228,5 +229,21 @@ export class MatchRepository {
       .get(matchId) as { state_json: string; revision: number } | undefined;
 
     return row ? { revision: row.revision, state: JSON.parse(row.state_json) as unknown } : null;
+  }
+
+  getLatestProjection(): { matchId: string; revision: number; state: unknown } | null {
+    const row = this.database
+      .prepare(
+        "SELECT id, state_json, revision FROM matches ORDER BY updated_at DESC, rowid DESC LIMIT 1"
+      )
+      .get() as { id: string; state_json: string; revision: number } | undefined;
+
+    return row
+      ? {
+          matchId: row.id,
+          revision: row.revision,
+          state: JSON.parse(row.state_json) as unknown
+        }
+      : null;
   }
 }

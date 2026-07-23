@@ -12,6 +12,8 @@ import {
 export const CommandTypeSchema = z.enum([
   "match.create",
   "match.load",
+  "match.close",
+  "match.undo",
   "match.scoreSet",
   "match.periodSet",
   "clock.start",
