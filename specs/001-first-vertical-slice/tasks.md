@@ -20,14 +20,14 @@ traceability.
 
 **Purpose**: Establish the monorepo, repeatable commands and repository policy.
 
-- [ ] T001 Create pnpm workspace and root scripts in `package.json` and `pnpm-workspace.yaml`
-- [ ] T002 [P] Add strict shared TypeScript configuration in `tsconfig.base.json`
-- [ ] T003 [P] Configure ESLint and Prettier in `eslint.config.js` and `.prettierrc.json`
-- [ ] T004 [P] Configure Vitest workspace and coverage in `vitest.workspace.ts`
-- [ ] T005 [P] Configure Playwright projects for control and overlay in `playwright.config.ts`
-- [ ] T006 Create application and package manifests under `apps/*/package.json` and `packages/*/package.json`
-- [ ] T007 Add environment validation and documented defaults in `packages/contracts/src/environment.ts`
-- [ ] T008 Add CI jobs for format, lint, typecheck, tests and build in `.github/workflows/ci.yml`
+- [x] T001 Create pnpm workspace and root scripts in `package.json` and `pnpm-workspace.yaml`
+- [x] T002 [P] Add strict shared TypeScript configuration in `tsconfig.base.json`
+- [x] T003 [P] Configure ESLint and Prettier in `eslint.config.js` and `.prettierrc.json`
+- [x] T004 [P] Configure Vitest workspace and coverage in `vitest.workspace.ts`
+- [x] T005 [P] Configure Playwright projects for control and overlay in `playwright.config.ts`
+- [x] T006 Create application and package manifests under `apps/*/package.json` and `packages/*/package.json`
+- [x] T007 Add environment validation and documented defaults in `packages/contracts/src/environment.ts`
+- [x] T008 Add CI jobs for format, lint, typecheck, tests and build in `.github/workflows/ci.yml`
 
 **Checkpoint**: A clean checkout can install dependencies and run all empty
 quality commands consistently.
@@ -39,18 +39,18 @@ quality commands consistently.
 **Purpose**: Build the contracts and authority boundaries that block every user
 story.
 
-- [ ] T009 [P] Define branded IDs, revisions and timestamps in `packages/contracts/src/primitives.ts`
-- [ ] T010 [P] Define command, event, acknowledgement and error envelopes for FR-002, FR-007 and FR-015 in `packages/contracts/src/realtime.ts`
-- [ ] T011 [P] Define Match, Team, MatchClock and MatchFormat schemas for FR-001, FR-004, FR-005 and FR-006 in `packages/contracts/src/match.ts`
-- [ ] T012 [P] Define GraphicCue, GraphicsState and StateSnapshot schemas for FR-009, FR-013 and FR-016 in `packages/contracts/src/graphics.ts`
-- [ ] T013 Add contract parsing and version rejection tests in `packages/contracts/tests/contracts.test.ts`
-- [ ] T014 Implement migration runner and initial schema in `packages/database/src/migrations/001-initial.sql` and `packages/database/src/migrate.ts`
-- [ ] T015 Implement WAL database lifecycle and backup guard in `packages/database/src/database.ts`
-- [ ] T016 Implement atomic command receipt, event and projection transaction for FR-017 in `packages/database/src/repositories/match-repository.ts`
-- [ ] T017 Add migration, rollback and atomic failure tests in `packages/database/tests/database.test.ts`
-- [ ] T018 Implement structured local logging with redaction and rotation in `apps/server/src/logging.ts`
-- [ ] T019 Implement loopback-only configuration and health endpoint from `contracts/openapi.yaml` in `apps/server/src/http/health.ts`
-- [ ] T020 Implement production lease and isolated rehearsal session rules for FR-021 in `apps/server/src/sessions/production-lease.ts`
+- [x] T009 [P] Define branded IDs, revisions and timestamps in `packages/contracts/src/primitives.ts`
+- [x] T010 [P] Define command, event, acknowledgement and error envelopes for FR-002, FR-007 and FR-015 in `packages/contracts/src/realtime.ts`
+- [x] T011 [P] Define Match, Team, MatchClock and MatchFormat schemas for FR-001, FR-004, FR-005 and FR-006 in `packages/contracts/src/match.ts`
+- [x] T012 [P] Define GraphicCue, GraphicsState and StateSnapshot schemas for FR-009, FR-013 and FR-016 in `packages/contracts/src/graphics.ts`
+- [x] T013 Add contract parsing and version rejection tests in `packages/contracts/tests/contracts.test.ts`
+- [x] T014 Implement migration runner and initial schema in `packages/database/src/migrations/001-initial.sql` and `packages/database/src/migrate.ts`
+- [x] T015 Implement WAL database lifecycle and backup guard in `packages/database/src/database.ts`
+- [x] T016 Implement atomic command receipt, event and projection transaction for FR-017 in `packages/database/src/repositories/match-repository.ts`
+- [x] T017 Add migration, rollback and atomic failure tests in `packages/database/tests/database.test.ts`
+- [x] T018 Implement structured local logging with redaction and rotation in `apps/server/src/logging.ts`
+- [x] T019 Implement loopback-only configuration and health endpoint from `contracts/openapi.yaml` in `apps/server/src/http/health.ts`
+- [x] T020 Implement production lease and isolated rehearsal session rules for FR-021 in `apps/server/src/sessions/production-lease.ts`
 
 **Checkpoint**: Contracts validate at runtime, storage is transactional and only
 one production authority can accept commands.
@@ -151,7 +151,7 @@ confirmed state within specification thresholds.
 
 ## Phase 6: User Story 4 - Validar la salida en vMix (Priority: P4)
 
-**Goal**: Prove transparency, 1080p60 behavior, stability and recovery in the
+**Goal**: Prove transparency, 1080p30 behavior, stability and recovery in the
 actual vMix Browser Input.
 
 **Independent Test**: Complete Scenario D and the two-hour protocol from

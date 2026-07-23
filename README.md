@@ -122,7 +122,7 @@ Antes de construir todos los gráficos se validará un flujo completo:
 
 El proyecto se encuentra en fase de especificación y fundación. Aún no hay una
 versión funcional ni se deben asumir promesas de “cero latencia”. Los objetivos
-iniciales son 1920x1080 a 60 fps, activación perceptualmente inmediata y
+iniciales son 1920x1080 a 30 fps, activación perceptualmente inmediata y
 recuperación determinista del estado.
 
 Consulta [docs/architecture.md](docs/architecture.md) para la especificación

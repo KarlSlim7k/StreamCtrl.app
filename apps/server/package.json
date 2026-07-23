@@ -1,0 +1,23 @@
+{
+  "name": "@streamctrl/server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "start": "node dist/index.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@streamctrl/contracts": "workspace:*",
+    "@streamctrl/database": "workspace:*",
+    "express": "5.2.1",
+    "pino": "10.3.1",
+    "rotating-file-stream": "3.2.9",
+    "socket.io": "4.8.3"
+  },
+  "devDependencies": {
+    "@types/express": "5.0.6"
+  }
+}

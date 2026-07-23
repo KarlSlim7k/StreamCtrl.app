@@ -58,32 +58,32 @@ current revision. Reusing `commandId` returns the original acknowledgement.
 
 ## Commands
 
-| Type | Required payload |
-|---|---|
-| `match.create` | teams, name, format |
-| `match.load` | matchId |
-| `match.scoreSet` | matchId, expectedRevision, home, away |
-| `match.periodSet` | matchId, expectedRevision, period |
-| `clock.start` | matchId, expectedRevision |
-| `clock.pause` | matchId, expectedRevision |
-| `clock.stop` | matchId, expectedRevision |
-| `clock.correct` | matchId, expectedRevision, elapsedMs |
-| `clock.addedTimeSet` | matchId, expectedRevision, minutes |
-| `graphics.previewSet` | cue type and validated draft |
-| `graphics.cueTake` | cueId, expected graphics revision |
-| `graphics.cueHide` | cue type, expected graphics revision |
-| `graphics.allHide` | expected graphics revision |
-| `state.snapshotRequest` | last known revisions |
+| Type                    | Required payload                      |
+| ----------------------- | ------------------------------------- |
+| `match.create`          | teams, name, format                   |
+| `match.load`            | matchId                               |
+| `match.scoreSet`        | matchId, expectedRevision, home, away |
+| `match.periodSet`       | matchId, expectedRevision, period     |
+| `clock.start`           | matchId, expectedRevision             |
+| `clock.pause`           | matchId, expectedRevision             |
+| `clock.stop`            | matchId, expectedRevision             |
+| `clock.correct`         | matchId, expectedRevision, elapsedMs  |
+| `clock.addedTimeSet`    | matchId, expectedRevision, minutes    |
+| `graphics.previewSet`   | cue type and validated draft          |
+| `graphics.cueTake`      | cueId, expected graphics revision     |
+| `graphics.cueHide`      | cue type, expected graphics revision  |
+| `graphics.allHide`      | expected graphics revision            |
+| `state.snapshotRequest` | last known revisions                  |
 
 ## Server events
 
-| Type | Meaning |
-|---|---|
-| `state.snapshot` | Complete authoritative state |
-| `match.stateChanged` | Confirmed match projection |
-| `clock.synchronized` | Clock anchor for interpolation |
-| `graphics.programChanged` | Confirmed Program projection |
-| `command.rejected` | Safe rejection details |
+| Type                       | Meaning                            |
+| -------------------------- | ---------------------------------- |
+| `state.snapshot`           | Complete authoritative state       |
+| `match.stateChanged`       | Confirmed match projection         |
+| `clock.synchronized`       | Clock anchor for interpolation     |
+| `graphics.programChanged`  | Confirmed Program projection       |
+| `command.rejected`         | Safe rejection details             |
 | `connection.statusChanged` | Dependency status for control only |
 
 ## Ordering and recovery

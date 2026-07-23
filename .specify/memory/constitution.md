@@ -1,20 +1,15 @@
 <!--
 Sync Impact Report
-- Version change: template (unratified) -> 1.0.0
+- Version change: 1.0.0 -> 1.1.0
 - Modified principles:
-  - Template Principle 1 -> I. Match State Is Authoritative
-  - Template Principle 2 -> II. Safe Live Operation
-  - Template Principle 3 -> III. Recovery Is a Feature
-  - Template Principle 4 -> IV. Contracts Before Consumers
-  - Template Principle 5 -> V. Test and Measure Production Behavior
-- Added sections:
-  - Product and Technical Boundaries
-  - Delivery Workflow and Quality Gates
+  - Product and Technical Boundaries: production profile aligned from
+    1920x1080p60 to the documented 1920x1080p30 vMix workflow
+- Added sections: none
 - Removed sections: none
 - Templates requiring updates:
-  - ✅ .specify/templates/plan-template.md
-  - ✅ .specify/templates/spec-template.md
-  - ✅ .specify/templates/tasks-template.md
+  - ✅ .specify/templates/plan-template.md (reviewed; no fixed project frame rate)
+  - ✅ .specify/templates/spec-template.md (reviewed; no fixed project frame rate)
+  - ✅ .specify/templates/tasks-template.md (reviewed; measurement remains required)
 - Runtime guidance reviewed:
   - ✅ README.md
   - ✅ copilot-instructions.md
@@ -72,7 +67,7 @@ hardware and duration; absolute claims such as “zero latency” are prohibited
 - vMix MUST remain the initial compositor and NDI/OMT output provider.
 - Core operation MUST work without internet access.
 - The Program overlay MUST target a transparent 1920x1080 output and sustained
-  60 fps on the documented reference hardware.
+  30 fps on the documented reference hardware and vMix production profile.
 - The approved foundation is TypeScript, Electron, React, Node.js, Socket.io,
   SQLite, runtime schema validation, and a dedicated animation system.
 - Local services MUST bind to loopback by default. Renderer processes MUST NOT
@@ -117,4 +112,4 @@ Tracking table with the rejected simpler alternative. `README.md`,
 `copilot-instructions.md`, and `docs/architecture.md` provide runtime and
 technical guidance but cannot override this constitution.
 
-**Version**: 1.0.0 | **Ratified**: 2026-07-23 | **Last Amended**: 2026-07-23
+**Version**: 1.1.0 | **Ratified**: 2026-07-23 | **Last Amended**: 2026-07-23

@@ -6,15 +6,19 @@ developer scripts, not application code.
 
 ## Reference environment
 
-- Windows 11 x64, fully patched.
-- Intel Core i7 12th gen / Ryzen 7 5700X or better.
-- 32 GB RAM.
-- Dedicated GPU comparable to RTX 3060.
-- SSD with at least 10 GB free.
-- 1920x1080 display path at 60 Hz.
-- vMix 29 for final Browser Input validation.
+- ASUS TUF Gaming A16 FA607NUG.
+- Windows 11 Home Single Language x64, build 26200.
+- AMD Ryzen 7 7445HS, 6 cores and 12 logical processors.
+- 16 GB DDR5-5600.
+- NVIDIA GeForce RTX 4050 Laptop GPU with 6 GB VRAM, driver 573.05.
+- 512 GB and 1 TB NVMe SSDs.
+- Active 1 Gbps Ethernet connection.
+- 1920x1080 Program and Browser Input path at 30 fps.
+- vMix Max 29.0.0.48 for final Browser Input validation.
 
-Record actual CPU, GPU, driver, RAM, OS build and vMix version with every result.
+This is the initial production baseline, not a published minimum requirement.
+Record actual CPU, GPU, driver, RAM, OS build, vMix edition/version, resolution
+and frame rate with every result.
 
 ## Automated validation
 
@@ -79,7 +83,7 @@ Expected:
 
 1. Start StreamCtrl and note the Program URL:
    `http://127.0.0.1:3100/overlay/program`.
-2. In vMix, add one Web Browser input at 1920x1080.
+2. In vMix Max 29.0.0.48, add one Web Browser input at 1920x1080p30.
 3. Disable Browser Input audio and keyboard input.
 4. Confirm alpha transparency over moving video.
 5. Run the match sequence and reconnect StreamCtrl without recreating the input.
@@ -103,7 +107,8 @@ Expected:
 Pass thresholds:
 
 - Clock drift no greater than 100 ms against the chosen reference.
-- 60 fps with no sustained drop longer than one second.
+- 30 fps with no sustained drop longer than one second.
+- No sustained memory pressure or paging that disrupts vMix or Program.
 - No monotonically increasing memory trend after warm-up and cleanup.
 - No duplicate command, corrupted snapshot or unrecoverable Program state.
 

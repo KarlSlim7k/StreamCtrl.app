@@ -11,7 +11,15 @@ para operar un partido de fútbol, controlar marcador y reloj, tomar un lower
 third, entregar un overlay transparente a vMix y recuperarse de desconexiones o
 reinicios."
 
-## User Scenarios & Testing *(mandatory)*
+## Clarifications
+
+### Session 2026-07-23
+
+- Q: ¿Cuál es el perfil inicial de vMix y Program? → A: vMix Max a 1920x1080p30.
+- Q: ¿Qué equipo será la referencia inicial? → A: ASUS TUF Gaming A16
+  FA607NUG con Ryzen 7 7445HS, RTX 4050 Laptop y 16 GB RAM.
+
+## User Scenarios & Testing _(mandatory)_
 
 ### User Story 1 - Operar marcador y reloj (Priority: P1)
 
@@ -120,8 +128,8 @@ recuperación.
    salida de Program, **Then** el fondo es transparente y no aparecen controles
    ni mensajes de diagnóstico.
 2. **Given** un partido simulado de dos horas, **When** se operan marcador,
-   reloj y lower thirds, **Then** la salida conserva fluidez y sincronía
-   perceptual.
+   reloj y lower thirds a 1920x1080p30, **Then** la salida conserva 30
+   fotogramas por segundo y sincronía perceptual.
 3. **Given** que la vista de Program pierde conexión, **When** el servicio se
    recupera, **Then** vuelve al último estado confirmado sin recrear la fuente
    en vMix.
@@ -141,7 +149,7 @@ recuperación.
 - La automatización de vMix falla mientras la salida de navegador sigue activa.
 - `all.hide` se ejecuta durante una animación de entrada o salida.
 
-## Requirements *(mandatory)*
+## Requirements _(mandatory)_
 
 ### Functional Requirements
 
@@ -218,7 +226,7 @@ recuperación.
 - **OperatorSession**: Contexto local de operación, incluido el modo producción
   o ensayo; el MVP admite un operador activo.
 
-## Success Criteria *(mandatory)*
+## Success Criteria _(mandatory)_
 
 ### Measurable Outcomes
 
@@ -235,7 +243,7 @@ recuperación.
   partido confirmado en menos de 10 segundos.
 - **SC-007**: Una prueba continua de dos horas mantiene el reloj dentro de 100 ms
   de la referencia elegida y no presenta crecimiento continuo de memoria.
-- **SC-008**: La salida de Program mantiene 60 fotogramas por segundo en el
+- **SC-008**: La salida de Program mantiene 30 fotogramas por segundo en el
   hardware objetivo durante las escenas definidas del ciclo vertical, sin
   caídas sostenidas mayores a 1 segundo.
 - **SC-009**: El 100% de los escenarios de corrección, duplicación, reconexión,
@@ -256,11 +264,16 @@ recuperación.
   por reglas de competición.
 - vMix realiza composición, grabación y salida NDI/OMT; la aplicación solo
   entrega el overlay y automatización opcional.
+- El perfil inicial de producción es vMix Max 29.0.0.48 con Program y Browser
+  Input configurados a 1920x1080p30.
 - El diseño visual inicial incluye un scorebug y un lower third neutros,
   personalizables más adelante.
 - La referencia de reloj del MVP es el reloj del equipo local; la
   sincronización con un reloj oficial externo queda fuera.
 - La producción cuenta con un hardware principal; la conmutación automática a
   un segundo equipo queda fuera, aunque se documentará un procedimiento manual.
+- El hardware objetivo inicial es un ASUS TUF Gaming A16 FA607NUG con Windows
+  11 x64, AMD Ryzen 7 7445HS (6 núcleos/12 hilos), 16 GB DDR5-5600, NVIDIA
+  GeForce RTX 4050 Laptop GPU de 6 GB y almacenamiento NVMe.
 - Toda prueba de rendimiento registrará CPU, GPU, memoria, resolución,
   frecuencia de cuadro, versión de vMix y duración.

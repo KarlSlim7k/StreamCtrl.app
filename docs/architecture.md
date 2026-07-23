@@ -107,7 +107,7 @@ http://127.0.0.1:3100/overlay/program
 Configuración objetivo:
 
 - 1920x1080.
-- 60 fps cuando la licencia/configuración de vMix lo permita.
+- 30 fps, alineado con el perfil habitual de las transmisiones.
 - Fondo transparente.
 - Audio deshabilitado.
 

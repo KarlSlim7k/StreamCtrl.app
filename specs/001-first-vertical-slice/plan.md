@@ -26,15 +26,15 @@ Express, Socket.IO 4.x, Zod, Zustand, GSAP 3.x
 **Testing**: Vitest, React Testing Library y Playwright; pruebas de contrato,
 recuperación y endurance
 
-**Target Platform**: Windows 11 x64; vMix 29 como referencia de validación;
-overlay lógico 1920x1080 a 60 fps
+**Target Platform**: Windows 11 x64; vMix Max 29.0.0.48 como referencia de
+validación; overlay lógico 1920x1080 a 30 fps
 
 **Project Type**: Monorepo de aplicación de escritorio, servicio local y dos
 renderers web independientes
 
 **Performance Goals**: feedback local menor a 250 ms; `all.hide` confirmado en
 menos de 1 s; restauración de vista en menos de 3 s; reloj dentro de 100 ms
-durante dos horas; 60 fps sostenidos en las escenas del MVP
+durante dos horas; 30 fps sostenidos en las escenas del MVP
 
 **Constraints**: operación offline, una sola autoridad de escritura, servicios
 ligados a loopback, salida transparente sin diagnósticos, persistencia antes de
@@ -45,20 +45,21 @@ scorebug y un lower third, historial completo del partido, una salida Program
 
 ## Constitution Check
 
-*GATE: Passed before Phase 0 research and re-checked after Phase 1 design.*
+_GATE: Passed before Phase 0 research and re-checked after Phase 1 design._
 
 - [x] Match state has one authoritative owner; renderers and adapters are
-  read-only projections.
+      read-only projections.
 - [x] Edit, Preview, and Program are distinct in the UI and contracts.
 - [x] Restart, reconnection, snapshot restoration, and vMix-adapter failure have
-  defined scenarios and tasks.
+      defined scenarios and tasks.
 - [x] Commands, events, snapshots, cues, and errors use versioned Zod contracts.
 - [x] Domain logic remains independent from UI, storage, transport, and vMix.
 - [x] Unit, contract, integration, end-to-end, recovery, and endurance
-  validations are identified.
+      validations are identified.
 - [x] Scope remains inside the football + vMix first vertical slice.
 
-Post-design review: **PASS**. No constitutional exceptions are required.
+Post-design review: **PASS**. El perfil 1920x1080p30 coincide con la
+Constitución v1.1.0 y no requiere excepciones.
 
 ## Project Structure
 
