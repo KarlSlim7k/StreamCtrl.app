@@ -1,0 +1,102 @@
+openapi: 3.1.0
+info:
+  title: StreamCtrl Local API
+  version: 1.0.0
+  description: Read-only bootstrap and health surface for the first vertical slice.
+servers:
+  - url: http://127.0.0.1:3100
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      responses:
+        "200":
+          description: Local service health
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Health"
+  /api/v1/state:
+    get:
+      operationId: getStateSnapshot
+      responses:
+        "200":
+          description: Complete current snapshot
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Snapshot"
+        "404":
+          description: No active match
+  /overlay/program:
+    get:
+      operationId: getProgramOverlay
+      responses:
+        "200":
+          description: Transparent Program renderer
+          content:
+            text/html:
+              schema:
+                type: string
+  /overlay/preview:
+    get:
+      operationId: getPreviewOverlay
+      responses:
+        "200":
+          description: Operator Preview renderer
+          content:
+            text/html:
+              schema:
+                type: string
+components:
+  schemas:
+    Health:
+      type: object
+      required: [status, version, uptimeMs, database, vmix]
+      properties:
+        status:
+          enum: [ok, degraded]
+        version:
+          type: string
+        uptimeMs:
+          type: integer
+          minimum: 0
+        database:
+          enum: [ok, error]
+        vmix:
+          enum: [connected, disconnected, disabled]
+    Snapshot:
+      type: object
+      required:
+        - protocolVersion
+        - matchRevision
+        - graphicsRevision
+        - match
+        - teams
+        - graphics
+        - generatedAt
+      properties:
+        protocolVersion:
+          const: 1
+        matchRevision:
+          type: integer
+          minimum: 0
+        graphicsRevision:
+          type: integer
+          minimum: 0
+        match:
+          type: object
+          additionalProperties: true
+        teams:
+          type: array
+          minItems: 2
+          maxItems: 2
+          items:
+            type: object
+            additionalProperties: true
+        graphics:
+          type: object
+          additionalProperties: true
+        generatedAt:
+          type: string
+          format: date-time

@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Builds and packages
+dist/
+build/
+out/
+release/
+*.exe
+*.msi
+*.dmg
+*.AppImage
+
+# Test and performance output
+coverage/
+playwright-report/
+test-results/
+artifacts/
+
+# Runtime data
+*.db
+*.db-shm
+*.db-wal
+logs/
+backups/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.local
+
+# Tool caches
+.vite/
+.turbo/
+.eslintcache
+*.tsbuildinfo
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+~$*
