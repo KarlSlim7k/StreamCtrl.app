@@ -1,177 +1,133 @@
 # StreamCtrl.app
 
-<div align="center">
+Aplicación local para operar gráficos deportivos en tiempo real y enviarlos a
+vMix mediante una única fuente de navegador transparente.
 
-**La Solución Todo-en-Uno para Control Profesional de Transmisión en Vivo**
+El primer objetivo es fútbol, especialmente partidos y finales donde la
+estabilidad, la corrección rápida de errores y la recuperación del estado son
+tan importantes como el diseño gráfico.
 
-*Gestiona superposiciones, gráficos, redes sociales y cámaras desde una sola aplicación de escritorio potente*
+## Objetivo
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Status: In Development](https://img.shields.io/badge/Status-In%20Development-yellow.svg)]()
-[![Platform: Windows | macOS | Linux](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)]()
+StreamCtrl separa la operación, los datos del partido y el renderizado:
 
-[Características](#características) • [¿Por qué StreamCtrl?](#por-qué-streamctrl) • [Primeros Pasos](#primeros-pasos) • [Hoja de Ruta](#hoja-de-ruta) •
+```text
+Panel de control
+      |
+      v
+Núcleo del partido + SQLite
+      |
+      +-- WebSocket --> Overlay transparente --> vMix --> NDI/OMT
+      |
+      +-- Adaptador vMix API --> automatización de inputs y overlays
+```
 
-</div>
+En la primera versión, vMix continúa siendo el compositor y responsable de la
+salida NDI/OMT. Una salida directa podrá añadirse después como otro adaptador,
+sin reemplazar el núcleo ni el panel.
 
----
+## Alcance inicial
 
-## 🎯 ¿Qué es StreamCtrl?
+- Marcador permanente y cronómetro.
+- Periodos, descanso, tiempo añadido y estado final.
+- Goles, tarjetas y sustituciones.
+- Alineaciones, suplentes y posiciones de jugadores.
+- Estadísticas y notas informativas.
+- Lower thirds para jugadores, técnicos y comentaristas.
+- Pantallas de previa, medio tiempo y resultado final.
+- Historial de eventos, corrección y deshacer.
+- Recuperación automática después de cerrar o reiniciar la aplicación.
+- Indicadores de conexión y de qué gráfico está al aire.
+- Atajos de teclado, confirmaciones y protección contra dobles pulsaciones.
+- Modo ensayo para probar una producción sin afectar la salida al aire.
 
-StreamCtrl.app es una **aplicación de escritorio local-primero** diseñada para dar a creadores de contenido, broadcasters y profesionales de transmisión en vivo control completo sobre su producción. Crea superposiciones impresionantes, muestra gráficos en tiempo real, integra comentarios de redes sociales y controla cámaras PTZ—todo desde una interfaz intuitiva.
+## Stack tecnológico
 
-Sin dependencia de la nube. Sin suscripciones mensuales. Sin configuraciones complicadas. Solo instala y comienza a transmitir como un profesional.
+- TypeScript en todo el proyecto.
+- Electron para la aplicación de escritorio.
+- React + Vite para el panel y el overlay.
+- Node.js + Express para el servicio local.
+- Socket.io para sincronización en tiempo real.
+- SQLite + better-sqlite3 para persistencia local.
+- Zustand para estado de interfaz.
+- GSAP para animaciones del overlay.
+- Vitest + React Testing Library para pruebas unitarias y de componentes.
+- Playwright para flujos críticos y pruebas del overlay.
 
-## ✨ Características
+## Principios de arquitectura
 
-### 🎨 Gestión Dinámica de Superposiciones
-- **Terceros Inferiores**: Etiquetas de nombre y títulos profesionales con animaciones suaves
-- **Supers**: Superposiciones de texto rápidas para anuncios y actualizaciones
-- **Títulos Personalizados**: Títulos de pantalla completa con múltiples estilos de animación
-- **Temporizadores en Vivo**: Cuentas regresivas, cronómetros y displays de reloj
-- **Control en Tiempo Real**: Activación instantánea y actualizaciones vía panel intuitivo
+1. El núcleo del partido es la única fuente de verdad.
+2. El panel nunca controla directamente el DOM del overlay.
+3. Los mensajes usan contratos tipados y versionados.
+4. El overlay puede reconectarse y reconstruirse desde un snapshot completo.
+5. Los relojes se calculan desde marcas de tiempo, no contando intervalos.
+6. vMix, NDI y futuras salidas se implementan como adaptadores.
+7. Las plantillas visuales no contienen reglas del deporte.
+8. Toda acción operativa importante queda registrada.
 
-### 📊 Generación Automática de Gráficos
-- Plantillas preconstruidas para puntuaciones, estadísticas, gráficos y visualización de datos
-- Ingresa tus datos, genera gráficos hermosos al instante
-- Plantillas completamente personalizables
-- Guarda y reutiliza tus diseños favoritos
-- Exporta gráficos para usar en múltiples plataformas
+Ejemplos de cues:
 
-### 💬 Integración con Redes Sociales
-- **Comentarios de Facebook Live**: Muestra comentarios de espectadores directamente en la transmisión
-- Filtrado y moderación de comentarios en tiempo real
-- Elige qué comentarios aparecen como superposiciones
-- Autenticación segura OAuth 2.0
-- Actualización automática de tokens
+```text
+scorebug.show
+scorebug.hide
+goal.show
+lineup.show
+lowerThird.show
+note.show
+all.hide
+```
 
-### 🎥 Control de Cámara PTZ
-- Controla cámaras PTZ profesionales directamente desde la app
-- **Soporte Múltiple de Protocolos**: VISCA, Pelco-D, ONVIF, HTTP/REST
-- Guarda y recupera presets de cámara al instante
-- Joystick virtual o atajos de teclado
-- Auto-descubrimiento para cámaras ONVIF en tu red
-- Gestiona múltiples cámaras desde una interfaz
+## Estructura prevista
 
-### 🌐 Compatible con Fuente de Navegador
-- Genera superposiciones vía URL local (`localhost:3001/overlay`)
-- Funciona perfectamente con OBS Studio, Streamyard, vMix y más
-- Cero latencia, cero buffering
-- Fondos transparentes para integración perfecta
+```text
+apps/
+  desktop/       Electron, preload e IPC
+  control/       panel React
+  overlay/       salida transparente 1920x1080
+  server/        API local, Socket.io y composición
+packages/
+  core/          reglas y estado del partido
+  contracts/     comandos, eventos y snapshots
+  database/      esquema, migraciones y repositorios
+  graphics/      componentes y sistema de cues
+  adapters/      vMix y futuras salidas
+docs/
+  architecture.md
+```
 
-### 💻 Arquitectura Local-Primero
-- Todo se ejecuta en tu computadora—no se requiere internet para funciones principales
-- Tus datos permanecen privados y seguros
-- Sin almacenamiento en la nube, sin servidores externos
-- Funciona offline (excepto funciones de redes sociales)
-- Rendimiento ultrarrápido
+## Primer hito: ciclo vertical
 
-## 🚀 ¿Por qué StreamCtrl?
+Antes de construir todos los gráficos se validará un flujo completo:
 
-### Para Creadores de Contenido
-- **Ahorra Tiempo**: Deja de cambiar entre múltiples herramientas y pestañas del navegador
-- **Parezco Profesional**: Superposiciones y gráficos pulidos en segundos
-- **Fácil de Usar**: Interfaz intuitiva, no se requiere conocimiento técnico
-- **Gratis para Siempre**: Sin suscripciones, sin costos ocultos
+1. Crear o cargar un partido.
+2. Cambiar el marcador desde el panel.
+3. Sincronizar el cambio por WebSocket.
+4. Renderizar y animar el scorebug transparente.
+5. Mostrar y ocultar un lower third.
+6. Reconectar el overlay y recuperar el estado.
+7. Cargar la URL del overlay como Browser Input en vMix.
 
-### Para Pequeños Estudios
-- **Solución Todo-en-Uno**: Superposiciones + gráficos + social + control de cámara
-- **Amigable con el Presupuesto**: Resultados profesionales sin precios profesionales
-- **Confiable**: Procesamiento local significa sin interrupciones de internet durante eventos en vivo
-- **Flexible**: Personaliza todo para que coincida con tu marca
+## Roadmap
 
-### Para Broadcasters Profesionales
-- **Control Poderoso**: Gestiona producciones complejas con facilidad
-- **Baja Latencia**: Integración directa de fuente de navegador
-- **Soporte Multi-Cámara**: Controla múltiples cámaras PTZ simultáneamente
-- **Extensible**: Construido para expansión futura y flujos de trabajo personalizados
+- **Fase 0 — Fundación:** monorepo, contratos, núcleo, base de datos y pruebas.
+- **Fase 1 — Ciclo vertical:** panel, marcador, reloj, lower third y overlay.
+- **Fase 2 — Operación de fútbol:** jugadores, eventos, alineaciones y estadísticas.
+- **Fase 3 — vMix:** Browser Input, API, estado al aire y acciones de emergencia.
+- **Fase 4 — Producción:** ensayo, auditoría, recuperación y redundancia.
+- **Fase 5 — Plantillas:** temas, branding y editor de datos.
+- **Fase 6 — Empaquetado:** instalador Windows, actualización y documentación.
+- **Futuro:** otros deportes, control remoto y salida NDI/OMT directa si se justifica.
 
-## 🎯 ¿Qué Nos Hace Diferentes?
+## Estado
 
-A diferencia de otras herramientas de streaming, StreamCtrl.app combina:
+El proyecto se encuentra en fase de especificación y fundación. Aún no hay una
+versión funcional ni se deben asumir promesas de “cero latencia”. Los objetivos
+iniciales son 1920x1080 a 60 fps, activación perceptualmente inmediata y
+recuperación determinista del estado.
 
-| Característica | StreamCtrl | OBS Studio | Streamlabs | Streamyard | Sistemas Profesionales |
-|----------------|------------|------------|------------|------------|-----------------------|
-| **Superposiciones** | ✅ | ✅ | ✅ | ✅ | ✅ |
-| **Generación de Gráficos** | ✅ | ❌ | Limitado | ❌ | ✅ |
-| **Comentarios Sociales** | ✅ | Plugin | ✅ | Limitado | ❌ |
-| **Control PTZ** | ✅ | ❌ | ❌ | ❌ | ✅ |
-| **Local-Primero** | ✅ | ✅ | ❌ | ❌ | ✅ |
-| **Configuración Fácil** | ✅ | Medio | Medio | ✅ | ❌ |
-| **Precio** | **Gratis** | Gratis | Suscripción | Suscripción | $$$$ |
+Consulta [docs/architecture.md](docs/architecture.md) para la especificación
+técnica inicial.
 
-## 🎬 Perfecto Para
+## Licencia
 
-- 🎮 **Streamers de Juegos**: Muestra puntuaciones, temporizadores y comentarios de espectadores
-- 📺 **Creadores de Contenido**: Superposiciones profesionales para YouTube y Twitch
-- 🎓 **Educadores**: Muestra preguntas, encuestas y gráficos educativos
-- 🏢 **Transmisiones Corporativas**: Branding profesional y presentaciones
-- 🎙️ **Podcasters**: Elementos visuales para podcasts de video
-- 🎪 **Producción de Eventos**: Control multi-cámara y gráficos dinámicos
-
-## 📥 Primeros Pasos
-
-### Instalación
-
-**¡Próximamente!** StreamCtrl.app está actualmente en desarrollo activo.
-
-Una vez lanzado, comenzar será tan simple como:
-
-1. **Descarga** el instalador para tu plataforma (Windows, macOS o Linux)
-2. **Instala** con un doble clic simple
-3. **Lanza** la app y completa el asistente de configuración rápido
-4. **Crea** tu primera superposición en menos de 5 minutos
-5. **Transmite** como un profesional!
-
-### Guía de Inicio Rápido
-
-1. **Configura tu superposición**: Elige de plantillas o crea diseños personalizados
-2. **Configura tus cámaras**: Agrega cámaras PTZ (opcional)
-3. **Conecta redes sociales**: Vincula tu página de Facebook para mostrar comentarios (opcional)
-4. **Agrega fuente de navegador**: Copia la URL de superposición a tu software de streaming
-5. **Ve en vivo**: Controla todo desde el panel de StreamCtrl
-
-## 🗺️ Hoja de Ruta
-
-### ✅ Fase 0: Fundación (Actual)
-Configuración del proyecto y entorno de desarrollo
-
-### 🔄 Fase 1: Panel de Control
-Panel principal y gestión de superposiciones
-
-### 📋 Fase 2: Sistema de Superposiciones
-Renderizado de superposiciones en tiempo real y salida de navegador
-
-### 🎥 Fase 2.5: Control de Cámara PTZ
-Integración de control de cámara multi-protocolo
-
-### 📊 Fase 3: Plantillas de Gráficos
-Generación automática de gráficos y tablas
-
-### 💬 Fase 4: Integración Social
-Comentarios de Facebook Live y moderación
-
-### 📦 Fase 5: Empaquetado
-Instaladores de app de escritorio para todas las plataformas
-
-### 🎉 Fase 6: Lanzamiento v1.0
-Pulido, pruebas y lanzamiento oficial
-
-### 🚀 Fase 7+: Expansión Futura
-- Apps móviles/tablet (Android & iOS)
-- Integración con YouTube e Instagram
-- Mercado de plantillas
-- Características avanzadas de IA
-- Sistema de plugins
-
-## 📞 Contacto
-
-- **Issues de GitHub**: [Reporta bugs o solicita características](https://github.com/KarlSlim7k/StreamCtrl.app/issues)
-- **Discusiones**: [Únete a la conversación](https://github.com/KarlSlim7k/StreamCtrl.app/discussions)
-- **Documentación**: ¡Próximamente!
-
----
-
-<div align="center">
-
-</div>
+MIT.
