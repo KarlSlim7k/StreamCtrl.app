@@ -128,6 +128,19 @@ recuperación determinista del estado.
 Consulta [docs/architecture.md](docs/architecture.md) para la especificación
 técnica inicial.
 
+## Desarrollo guiado por especificaciones
+
+El proyecto utiliza GitHub Spec Kit. La primera entrega está definida en:
+
+- [Especificación](specs/001-first-vertical-slice/spec.md)
+- [Plan técnico](specs/001-first-vertical-slice/plan.md)
+- [Diseño del panel y gráficos](specs/001-first-vertical-slice/ui-design.md)
+- [Protocolo de validación](specs/001-first-vertical-slice/quickstart.md)
+- [Tareas de implementación](specs/001-first-vertical-slice/tasks.md)
+
+Las contribuciones deben seguir [CONTRIBUTING.md](CONTRIBUTING.md) y la
+[constitución del proyecto](.specify/memory/constitution.md).
+
 ## Licencia
 
-MIT.
+[MIT](LICENSE).

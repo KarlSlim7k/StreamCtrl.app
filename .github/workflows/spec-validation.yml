@@ -1,0 +1,65 @@
+name: Spec validation
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate-spec-kit:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate active feature metadata
+        shell: pwsh
+        run: |
+          $feature = Get-Content '.specify/feature.json' -Raw |
+            ConvertFrom-Json
+          $directory = $feature.feature_directory
+          if (-not (Test-Path "$directory/spec.md")) {
+            throw "Missing active specification: $directory/spec.md"
+          }
+
+      - name: Reject unresolved specification decisions
+        shell: pwsh
+        run: |
+          $matches = Get-ChildItem 'specs' -Recurse -Filter 'spec.md' |
+            Select-String -Pattern '\[NEEDS CLARIFICATION:'
+          if ($matches) {
+            $matches
+            throw 'Unresolved clarification markers found.'
+          }
+
+      - name: Validate task checklist format
+        shell: pwsh
+        run: |
+          $taskFiles = Get-ChildItem 'specs' -Recurse -Filter 'tasks.md'
+          foreach ($file in $taskFiles) {
+            $lines = Get-Content $file.FullName |
+              Where-Object { $_ -match '^- \[ \] T\d{3}' }
+            $invalid = $lines |
+              Where-Object {
+                $_ -notmatch '^- \[ \] T\d{3}( \[P\])?( \[US\d+\])? .+`[^`]+`'
+              }
+            if ($invalid) {
+              $invalid
+              throw "Invalid task format in $($file.FullName)"
+            }
+          }
+
+      - name: Validate constitution metadata
+        shell: pwsh
+        run: |
+          $constitution = Get-Content '.specify/memory/constitution.md' -Raw
+          if ($constitution -notmatch '\*\*Version\*\*: \d+\.\d+\.\d+') {
+            throw 'Constitution semantic version is missing.'
+          }
+          if ($constitution -match '\[PROJECT_NAME\]|\[PRINCIPLE_\d+_NAME\]') {
+            throw 'Constitution template placeholders remain.'
+          }
