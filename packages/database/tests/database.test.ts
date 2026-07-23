@@ -6,7 +6,7 @@ import BetterSqlite3 from "better-sqlite3";
 import { afterEach, describe, expect, it } from "vitest";
 
 import { openDatabase } from "../src/database.js";
-import { migrateDatabase } from "../src/migrate.js";
+import { migrateDatabase, readMigrations } from "../src/migrate.js";
 import { MatchRepository } from "../src/repositories/match-repository.js";
 
 const handles: Array<{ close(): void }> = [];
@@ -18,6 +18,10 @@ afterEach(() => {
 });
 
 describe("database lifecycle", () => {
+  it("finds source migrations before a package build has copied distribution assets", () => {
+    expect(readMigrations()).toEqual([expect.objectContaining({ version: 1, name: "initial" })]);
+  });
+
   it("applies the initial migration and enables WAL", async () => {
     const directory = mkdtempSync(join(tmpdir(), "streamctrl-db-"));
     const handle = await openDatabase({ path: join(directory, "streamctrl.db") });

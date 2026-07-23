@@ -67,22 +67,22 @@ the graphics applications and verify revisions, clock behavior and history.
 
 ### Tests for User Story 1
 
-- [ ] T021 [P] [US1] Add match transition tests for FR-001, FR-003, FR-005, FR-006 and FR-008 in `packages/core/tests/match.test.ts`
-- [ ] T022 [P] [US1] Add deterministic clock tests for start, pause, correction, added time and two-hour drift in `packages/core/tests/clock.test.ts`
-- [ ] T023 [P] [US1] Add idempotency and revision-conflict contract tests for FR-015 in `apps/server/tests/commands.test.ts`
-- [ ] T024 [US1] Add persisted restore integration test for FR-018 in `apps/server/tests/match-restore.test.ts`
+- [x] T021 [P] [US1] Add match transition tests for FR-001, FR-003, FR-005, FR-006 and FR-008 in `packages/core/tests/match.test.ts`
+- [x] T022 [P] [US1] Add deterministic clock tests for start, pause, correction, added time and two-hour drift in `packages/core/tests/clock.test.ts`
+- [x] T023 [P] [US1] Add idempotency and revision-conflict contract tests for FR-015 in `apps/server/tests/commands.test.ts`
+- [x] T024 [US1] Add persisted restore integration test for FR-018 in `apps/server/tests/match-restore.test.ts`
 
 ### Implementation for User Story 1
 
-- [ ] T025 [P] [US1] Implement pure Match aggregate and transition results in `packages/core/src/match.ts`
-- [ ] T026 [P] [US1] Implement timestamp-based MatchClock in `packages/core/src/clock.ts`
-- [ ] T027 [US1] Implement append-only correction and undo transitions for FR-008 in `packages/core/src/history.ts`
-- [ ] T028 [US1] Implement create, load, score, period and clock command handlers in `apps/server/src/commands/match-commands.ts`
-- [ ] T029 [US1] Implement snapshot query and restore orchestration for FR-016 and FR-018 in `apps/server/src/state/snapshot-service.ts`
-- [ ] T030 [P] [US1] Build match setup form in `apps/control/src/features/match/MatchSetup.tsx`
-- [ ] T031 [P] [US1] Build score, period and clock controls in `apps/control/src/features/match/MatchControls.tsx`
-- [ ] T032 [P] [US1] Build connection, revision and action history status in `apps/control/src/features/status/StatusAndHistory.tsx`
-- [ ] T033 [US1] Connect the control panel to command acknowledgements and snapshots in `apps/control/src/state/match-store.ts`
+- [x] T025 [P] [US1] Implement pure Match aggregate and transition results in `packages/core/src/match.ts`
+- [x] T026 [P] [US1] Implement timestamp-based MatchClock in `packages/core/src/clock.ts`
+- [x] T027 [US1] Implement append-only correction and undo transitions for FR-008 in `packages/core/src/history.ts`
+- [x] T028 [US1] Implement create, load, score, period and clock command handlers in `apps/server/src/commands/match-commands.ts`
+- [x] T029 [US1] Implement snapshot query and restore orchestration for FR-016 and FR-018 in `apps/server/src/state/snapshot-service.ts`
+- [x] T030 [P] [US1] Build match setup form in `apps/control/src/features/match/MatchSetup.tsx`
+- [x] T031 [P] [US1] Build score, period and clock controls in `apps/control/src/features/match/MatchControls.tsx`
+- [x] T032 [P] [US1] Build connection, revision and action history status in `apps/control/src/features/status/StatusAndHistory.tsx`
+- [x] T033 [US1] Connect the control panel to command acknowledgements and snapshots in `apps/control/src/state/match-store.ts`
 
 **Checkpoint**: User Story 1 is usable as a local match-control MVP and survives
 a full application restart.
@@ -99,20 +99,20 @@ and Program pages and verify that edits never leak to Program.
 
 ### Tests for User Story 2
 
-- [ ] T034 [P] [US2] Add cue validation and exclusion tests for FR-009 through FR-013 in `packages/graphics/tests/cues.test.ts`
-- [ ] T035 [P] [US2] Add overlay snapshot and revision-order tests in `apps/overlay/tests/program-state.test.ts`
-- [ ] T036 [P] [US2] Add accessible panel interaction tests for FR-012 through FR-014 in `apps/control/tests/graphics-controls.test.tsx`
-- [ ] T037 [US2] Add end-to-end Preview/Take/all.hide journey in `tests/e2e/graphics-program.spec.ts`
+- [x] T034 [P] [US2] Add cue validation and exclusion tests for FR-009 through FR-013 in `packages/graphics/tests/cues.test.ts`
+- [x] T035 [P] [US2] Add overlay snapshot and revision-order tests in `apps/overlay/tests/program-state.test.ts`
+- [x] T036 [P] [US2] Add accessible panel interaction tests for FR-012 through FR-014 in `apps/control/tests/graphics-controls.test.tsx`
+- [x] T037 [US2] Add end-to-end Preview/Take/all.hide journey in `tests/e2e/graphics-program.spec.ts`
 
 ### Implementation for User Story 2
 
-- [ ] T038 [P] [US2] Implement cue coordinator and Program projection in `packages/graphics/src/cue-coordinator.ts`
-- [ ] T039 [P] [US2] Implement reusable animation lifecycle and interruption cleanup in `packages/graphics/src/timeline.ts`
-- [ ] T040 [US2] Implement graphics command handlers and atomic all.hide for FR-013 in `apps/server/src/commands/graphics-commands.ts`
-- [ ] T041 [P] [US2] Implement scorebug component from `ui-design.md` in `apps/overlay/src/graphics/Scorebug.tsx`
-- [ ] T042 [P] [US2] Implement lower-third component from `ui-design.md` in `apps/overlay/src/graphics/LowerThird.tsx`
-- [ ] T043 [US2] Implement clean Program and operator Preview routes in `apps/overlay/src/routes.tsx`
-- [ ] T044 [US2] Build Preview/Program panes, cue controls and persistent all.hide in `apps/control/src/features/graphics/GraphicsWorkspace.tsx`
+- [x] T038 [P] [US2] Implement cue coordinator and Program projection in `packages/graphics/src/cue-coordinator.ts`
+- [x] T039 [P] [US2] Implement reusable animation lifecycle and interruption cleanup in `packages/graphics/src/timeline.ts`
+- [x] T040 [US2] Implement graphics command handlers and atomic all.hide for FR-013 in `apps/server/src/commands/graphics-commands.ts`
+- [x] T041 [P] [US2] Implement scorebug component from `ui-design.md` in `apps/overlay/src/graphics/Scorebug.tsx`
+- [x] T042 [P] [US2] Implement lower-third component from `ui-design.md` in `apps/overlay/src/graphics/LowerThird.tsx`
+- [x] T043 [US2] Implement clean Program and operator Preview routes in `apps/overlay/src/routes.tsx`
+- [x] T044 [US2] Build Preview/Program panes, cue controls and persistent all.hide in `apps/control/src/features/graphics/GraphicsWorkspace.tsx`
 
 **Checkpoint**: Scorebug and lower third are independently operable through one
 Program output.
@@ -129,20 +129,20 @@ transport, storage and optional-adapter failures.
 
 ### Tests for User Story 3
 
-- [ ] T045 [P] [US3] Add reconnect, event-gap and fallback snapshot tests for FR-016 in `apps/server/tests/recovery.test.ts`
-- [ ] T046 [P] [US3] Add duplicate delivery and pending acknowledgement tests for FR-015 in `apps/control/tests/reconnect.test.ts`
-- [ ] T047 [P] [US3] Add transaction-failure test proving no unpersisted event is published for FR-017 in `apps/server/tests/persistence-failure.test.ts`
-- [ ] T048 [P] [US3] Add vMix-adapter isolation tests for FR-020 in `packages/adapters/tests/vmix.test.ts`
-- [ ] T049 [US3] Add full restart and restore end-to-end test for FR-018 in `tests/recovery/full-restart.spec.ts`
+- [x] T045 [P] [US3] Add reconnect, event-gap and fallback snapshot tests for FR-016 in `apps/server/tests/recovery.test.ts`
+- [x] T046 [P] [US3] Add duplicate delivery and pending acknowledgement tests for FR-015 in `apps/control/tests/reconnect.test.ts`
+- [x] T047 [P] [US3] Add transaction-failure test proving no unpersisted event is published for FR-017 in `apps/server/tests/persistence-failure.test.ts`
+- [x] T048 [P] [US3] Add vMix-adapter isolation tests for FR-020 in `packages/adapters/tests/vmix.test.ts`
+- [x] T049 [US3] Add full restart and restore end-to-end test for FR-018 in `tests/recovery/full-restart.spec.ts`
 
 ### Implementation for User Story 3
 
-- [ ] T050 [P] [US3] Implement connection recovery with revision-gap detection in `apps/server/src/realtime/recovery.ts`
-- [ ] T051 [US3] Implement snapshot-first room admission and ordered publication in `apps/server/src/realtime/socket-server.ts`
-- [ ] T052 [P] [US3] Implement client reconnection state machine in `apps/control/src/realtime/reconnect.ts`
-- [ ] T053 [P] [US3] Implement Program reconnection state machine in `apps/overlay/src/realtime/reconnect.ts`
-- [ ] T054 [US3] Implement Electron service supervision and restore prompt in `apps/desktop/src/main.ts`
-- [ ] T055 [US3] Implement bounded, optional vMix HTTP adapter with circuit breaker in `packages/adapters/src/vmix-http.ts`
+- [x] T050 [P] [US3] Implement connection recovery with revision-gap detection in `apps/server/src/realtime/recovery.ts`
+- [x] T051 [US3] Implement snapshot-first room admission and ordered publication in `apps/server/src/realtime/socket-server.ts`
+- [x] T052 [P] [US3] Implement client reconnection state machine in `apps/control/src/realtime/reconnect.ts`
+- [x] T053 [P] [US3] Implement Program reconnection state machine in `apps/overlay/src/realtime/reconnect.ts`
+- [x] T054 [US3] Implement Electron service supervision and restore prompt in `apps/desktop/src/main.ts`
+- [x] T055 [US3] Implement bounded, optional vMix HTTP adapter with circuit breaker in `packages/adapters/src/vmix-http.ts`
 
 **Checkpoint**: Restart and dependency-failure scenarios restore the last
 confirmed state within specification thresholds.
@@ -159,17 +159,17 @@ actual vMix Browser Input.
 
 ### Tests for User Story 4
 
-- [ ] T056 [P] [US4] Add transparent-frame and safe-area visual snapshots for FR-019 in `apps/overlay/tests/visual/program.spec.ts`
-- [ ] T057 [P] [US4] Add frame-time, memory and clock-drift collector for FR-024 in `tests/endurance/metrics.ts`
-- [ ] T058 [US4] Add automated two-hour rehearsal driver for SC-007 through SC-009 in `tests/endurance/two-hour-match.spec.ts`
+- [x] T056 [P] [US4] Add transparent-frame and safe-area visual snapshots for FR-019 in `apps/overlay/tests/visual/program.spec.ts`
+- [x] T057 [P] [US4] Add frame-time, memory and clock-drift collector for FR-024 in `tests/endurance/metrics.ts`
+- [x] T058 [US4] Add automated two-hour rehearsal driver for SC-007 through SC-009 in `tests/endurance/two-hour-match.spec.ts`
 
 ### Implementation and validation for User Story 4
 
-- [ ] T059 [P] [US4] Add production CSP, transparent body and diagnostic-free Program shell in `apps/overlay/src/program.css` and `apps/overlay/index.html`
-- [ ] T060 [P] [US4] Add separate diagnostics dashboard in `apps/control/src/features/diagnostics/Diagnostics.tsx`
-- [ ] T061 [US4] Add performance artifact writer and machine manifest in `tests/endurance/report.ts`
-- [ ] T062 [US4] Execute and record Browser Input validation using `specs/001-first-vertical-slice/quickstart.md`
-- [ ] T063 [US4] Document measured reference results and any threshold exception in `docs/validation/reference-hardware.md`
+- [x] T059 [P] [US4] Add production CSP, transparent body and diagnostic-free Program shell in `apps/overlay/src/program.css` and `apps/overlay/index.html`
+- [x] T060 [P] [US4] Add separate diagnostics dashboard in `apps/control/src/features/diagnostics/Diagnostics.tsx`
+- [x] T061 [US4] Add performance artifact writer and machine manifest in `tests/endurance/report.ts`
+- [x] T062 [US4] Execute and record Browser Input validation using `specs/001-first-vertical-slice/quickstart.md`
+- [x] T063 [US4] Document measured reference results and any threshold exception in `docs/validation/reference-hardware.md`
 
 **Checkpoint**: The single transparent Program source passes the vMix and
 endurance protocols on documented hardware.
@@ -178,13 +178,13 @@ endurance protocols on documented hardware.
 
 ## Phase 7: Polish & Cross-Cutting Concerns
 
-- [ ] T064 [P] Add Spanish UI strings and terminology glossary in `apps/control/src/i18n/es.ts` and `docs/glossary.md`
-- [ ] T065 [P] Add keyboard navigation, visible focus and non-color status checks in `apps/control/tests/accessibility.spec.ts`
-- [ ] T066 Add import/export and manual backup package for the pre-final procedure in `apps/server/src/backup/match-package.ts`
-- [ ] T067 Add clean shutdown, crash marker and log export in `apps/desktop/src/lifecycle.ts`
-- [ ] T068 Run dependency audit and document accepted risks in `docs/security/dependency-audit.md`
+- [x] T064 [P] Add Spanish UI strings and terminology glossary in `apps/control/src/i18n/es.ts` and `docs/glossary.md`
+- [x] T065 [P] Add keyboard navigation, visible focus and non-color status checks in `apps/control/tests/accessibility.spec.ts`
+- [x] T066 Add import/export and manual backup package for the pre-final procedure in `apps/server/src/backup/match-package.ts`
+- [x] T067 Add clean shutdown, crash marker and log export in `apps/desktop/src/lifecycle.ts`
+- [x] T068 Run dependency audit and document accepted risks in `docs/security/dependency-audit.md`
 - [ ] T069 Run every command and scenario in `specs/001-first-vertical-slice/quickstart.md`
-- [ ] T070 Update root usage and vMix setup instructions in `README.md`
+- [x] T070 Update root usage and vMix setup instructions in `README.md`
 
 ---
 
@@ -248,3 +248,14 @@ vMix, but it is not final-ready until User Stories 3 and 4 pass.
 
 Complete User Stories 3 and 4 plus all Polish gates. No release may be described
 as final-ready without recorded recovery and endurance evidence.
+
+## Phase 8: Convergence
+
+- [x] T071 CRITICAL Create the executable server composition root, runtime-validated Socket.IO command router and post-commit publisher in `apps/server/src/bootstrap.ts` and `apps/server/src/realtime/command-router.ts` per US1/AC1 and plan: authoritative service (missing)
+- [x] T072 CRITICAL Replace local official graphics state with an authoritative control application shell and realtime command/snapshot client in `apps/control/src/App.tsx` and `apps/control/src/realtime/client.ts` per Constitution I and FR-002/FR-009 (contradicts)
+- [x] T073 CRITICAL Connect Program and Preview routes to snapshot-first realtime state with revision-gap recovery in `apps/overlay/src/App.tsx` and `apps/overlay/src/realtime/client.ts` per US2/AC2 and FR-016/FR-019 (missing)
+- [x] T074 Persist GraphicsState revisions atomically and restore them in complete snapshots in `packages/database/src/repositories/graphics-repository.ts` and `apps/server/src/state/snapshot-service.ts` per FR-017/FR-018 (partial)
+- [x] T075 Implement close-match and append-only undo commands with operator controls and tests in `packages/core/src/match.ts`, `apps/server/src/commands/match-commands.ts` and `apps/control/src/features/match/MatchControls.tsx` per FR-001/FR-008 (partial)
+- [x] T076 Enforce production leases and isolated rehearsal namespaces at realtime admission and command execution in `apps/server/src/realtime/socket-server.ts` per FR-021 (partial)
+- [x] T077 Build the Electron application bootstrap that supervises the server, detects crashes, offers restore and completes clean shutdown in `apps/desktop/src/bootstrap.ts` per US3/AC3 and Constitution III (partial)
+- [x] T078 Expose validated match-package import/export and log export through restricted Electron IPC and operator controls in `apps/desktop/src/preload.ts` and `apps/control/src/features/backup/BackupTools.tsx` per quickstart: manual backup procedure (partial)

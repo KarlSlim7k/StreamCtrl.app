@@ -1,15 +1,11 @@
 # StreamCtrl.app
 
 Aplicación local para operar gráficos deportivos en tiempo real y enviarlos a
-vMix mediante una única fuente de navegador transparente.
+vMix mediante una única entrada de navegador transparente. El primer ciclo
+vertical cubre marcador, reloj, Preview/Program, rótulo inferior, persistencia y
+recuperación.
 
-El primer objetivo es fútbol, especialmente partidos y finales donde la
-estabilidad, la corrección rápida de errores y la recuperación del estado son
-tan importantes como el diseño gráfico.
-
-## Objetivo
-
-StreamCtrl separa la operación, los datos del partido y el renderizado:
+## Arquitectura
 
 ```text
 Panel de control
@@ -17,130 +13,114 @@ Panel de control
       v
 Núcleo del partido + SQLite
       |
-      +-- WebSocket --> Overlay transparente --> vMix --> NDI/OMT
+      +-- Socket.IO --> Overlay transparente --> vMix --> NDI/OMT
       |
-      +-- Adaptador vMix API --> automatización de inputs y overlays
+      +-- Adaptador HTTP de vMix (opcional)
 ```
 
-En la primera versión, vMix continúa siendo el compositor y responsable de la
-salida NDI/OMT. Una salida directa podrá añadirse después como otro adaptador,
-sin reemplazar el núcleo ni el panel.
+vMix continúa siendo el compositor y responsable de la salida NDI/OMT. El estado
+oficial vive en StreamCtrl y puede reconstruirse desde SQLite y snapshots.
 
-## Alcance inicial
+## Requisitos de desarrollo
 
-- Marcador permanente y cronómetro.
-- Periodos, descanso, tiempo añadido y estado final.
-- Goles, tarjetas y sustituciones.
-- Alineaciones, suplentes y posiciones de jugadores.
-- Estadísticas y notas informativas.
-- Lower thirds para jugadores, técnicos y comentaristas.
-- Pantallas de previa, medio tiempo y resultado final.
-- Historial de eventos, corrección y deshacer.
-- Recuperación automática después de cerrar o reiniciar la aplicación.
-- Indicadores de conexión y de qué gráfico está al aire.
-- Atajos de teclado, confirmaciones y protección contra dobles pulsaciones.
-- Modo ensayo para probar una producción sin afectar la salida al aire.
+- Windows 11 para la validación final con vMix.
+- Node.js 24.
+- pnpm 11 mediante Corepack.
+- vMix Max 29 para la prueba de Browser Input; no es necesario para las pruebas
+  unitarias, visuales ni de extremo a extremo.
 
-## Stack tecnológico
+Comprueba las versiones:
 
-- TypeScript en todo el proyecto.
-- Electron para la aplicación de escritorio.
-- React + Vite para el panel y el overlay.
-- Node.js + Express para el servicio local.
-- Socket.io para sincronización en tiempo real.
-- SQLite + better-sqlite3 para persistencia local.
-- Zustand para estado de interfaz.
-- GSAP para animaciones del overlay.
-- Vitest + React Testing Library para pruebas unitarias y de componentes.
-- Playwright para flujos críticos y pruebas del overlay.
-
-## Principios de arquitectura
-
-1. El núcleo del partido es la única fuente de verdad.
-2. El panel nunca controla directamente el DOM del overlay.
-3. Los mensajes usan contratos tipados y versionados.
-4. El overlay puede reconectarse y reconstruirse desde un snapshot completo.
-5. Los relojes se calculan desde marcas de tiempo, no contando intervalos.
-6. vMix, NDI y futuras salidas se implementan como adaptadores.
-7. Las plantillas visuales no contienen reglas del deporte.
-8. Toda acción operativa importante queda registrada.
-
-Ejemplos de cues:
-
-```text
-scorebug.show
-scorebug.hide
-goal.show
-lineup.show
-lowerThird.show
-note.show
-all.hide
+```powershell
+node --version
+pnpm --version
 ```
 
-## Estructura prevista
+## Instalación y validación
+
+```powershell
+corepack enable
+pnpm install --frozen-lockfile
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm test:e2e
+pnpm build
+```
+
+El panel y el overlay pueden abrirse en modo de desarrollo con:
+
+```powershell
+pnpm dev
+```
+
+- Panel: `http://127.0.0.1:3101/`
+- Program: `http://127.0.0.1:3100/overlay/program`
+- Preview: `http://127.0.0.1:3100/overlay/preview`
+
+También se pueden iniciar por separado con `pnpm dev:control` y
+`pnpm dev:overlay`.
+
+## Configuración de vMix
+
+1. Inicia StreamCtrl antes de abrir la entrada.
+2. En vMix agrega una sola entrada **Web Browser**.
+3. Usa `http://127.0.0.1:3100/overlay/program`.
+4. Configura 1920×1080 a 30 fps.
+5. Deshabilita audio y entrada de teclado para ese Browser Input.
+6. Coloca la entrada sobre el video y confirma que las zonas transparentes dejan
+   ver la imagen inferior.
+7. Conserva una entrada de respaldo deshabilitada en el equipo alterno.
+
+No cargues Preview, controles ni diagnósticos en Program. El adaptador HTTP de
+vMix es opcional: una falla de automatización no debe interrumpir el Browser
+Input ni alterar el partido.
+
+## Operación antes de una final
+
+- Ejecuta todas las comprobaciones y el protocolo de dos horas.
+- Exporta el paquete del partido y la configuración a un medio removible.
+- Importa ese paquete en el equipo de respaldo y prueba su URL local.
+- Verifica marcador, reloj, `all.hide`, reconexión y transparencia sobre video.
+- Exporta los logs si ocurrió un cierre inesperado.
+
+El procedimiento completo y los umbrales están en la
+[guía de validación](specs/001-first-vertical-slice/quickstart.md). Los resultados
+de esta estación se registran en
+[hardware de referencia](docs/validation/reference-hardware.md).
+
+## Estructura
 
 ```text
 apps/
-  desktop/       Electron, preload e IPC
   control/       panel React
-  overlay/       salida transparente 1920x1080
-  server/        API local, Socket.io y composición
+  desktop/       host Electron y ciclo de vida
+  overlay/       Program/Preview transparentes
+  server/        API local, Socket.IO y comandos
 packages/
-  core/          reglas y estado del partido
-  contracts/     comandos, eventos y snapshots
-  database/      esquema, migraciones y repositorios
-  graphics/      componentes y sistema de cues
   adapters/      vMix y futuras salidas
-docs/
-  architecture.md
+  contracts/     mensajes y snapshots versionados
+  core/          reglas del partido
+  database/      SQLite, migraciones y repositorios
+  graphics/      cues y coordinación Preview/Program
+specs/
+  001-first-vertical-slice/
 ```
-
-## Primer hito: ciclo vertical
-
-Antes de construir todos los gráficos se validará un flujo completo:
-
-1. Crear o cargar un partido.
-2. Cambiar el marcador desde el panel.
-3. Sincronizar el cambio por WebSocket.
-4. Renderizar y animar el scorebug transparente.
-5. Mostrar y ocultar un lower third.
-6. Reconectar el overlay y recuperar el estado.
-7. Cargar la URL del overlay como Browser Input en vMix.
-
-## Roadmap
-
-- **Fase 0 — Fundación:** monorepo, contratos, núcleo, base de datos y pruebas.
-- **Fase 1 — Ciclo vertical:** panel, marcador, reloj, lower third y overlay.
-- **Fase 2 — Operación de fútbol:** jugadores, eventos, alineaciones y estadísticas.
-- **Fase 3 — vMix:** Browser Input, API, estado al aire y acciones de emergencia.
-- **Fase 4 — Producción:** ensayo, auditoría, recuperación y redundancia.
-- **Fase 5 — Plantillas:** temas, branding y editor de datos.
-- **Fase 6 — Empaquetado:** instalador Windows, actualización y documentación.
-- **Futuro:** otros deportes, control remoto y salida NDI/OMT directa si se justifica.
-
-## Estado
-
-El proyecto se encuentra en fase de especificación y fundación. Aún no hay una
-versión funcional ni se deben asumir promesas de “cero latencia”. Los objetivos
-iniciales son 1920x1080 a 30 fps, activación perceptualmente inmediata y
-recuperación determinista del estado.
-
-Consulta [docs/architecture.md](docs/architecture.md) para la especificación
-técnica inicial.
 
 ## Desarrollo guiado por especificaciones
 
-El proyecto utiliza GitHub Spec Kit. La primera entrega está definida en:
+El proyecto usa GitHub Spec Kit:
 
 - [Especificación](specs/001-first-vertical-slice/spec.md)
 - [Plan técnico](specs/001-first-vertical-slice/plan.md)
 - [Diseño del panel y gráficos](specs/001-first-vertical-slice/ui-design.md)
-- [Protocolo de validación](specs/001-first-vertical-slice/quickstart.md)
-- [Tareas de implementación](specs/001-first-vertical-slice/tasks.md)
+- [Tareas](specs/001-first-vertical-slice/tasks.md)
+- [Constitución](.specify/memory/constitution.md)
 
-Las contribuciones deben seguir [CONTRIBUTING.md](CONTRIBUTING.md) y la
-[constitución del proyecto](.specify/memory/constitution.md).
+Consulta también el [glosario operativo](docs/glossary.md), la
+[arquitectura](docs/architecture.md) y la
+[auditoría de dependencias](docs/security/dependency-audit.md).
 
 ## Licencia
 
-[MIT](LICENSE).
+[MIT](LICENSE)

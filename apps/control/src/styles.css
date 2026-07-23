@@ -1,0 +1,39 @@
+:root {
+  color: #f6f7fb;
+  background: #10131a;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+section {
+  border: 1px solid #384155;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+button,
+input {
+  margin: 0.35rem;
+  padding: 0.65rem;
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid #ffd166;
+  outline-offset: 2px;
+}
+
+.all-hide {
+  background: #b42318;
+  color: white;
+  justify-self: end;
+}
