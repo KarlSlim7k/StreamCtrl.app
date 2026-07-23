@@ -1,0 +1,13 @@
+node_modules/
+dist/
+build/
+coverage/
+playwright-report/
+test-results/
+artifacts/
+.agents/
+.specify/
+pnpm-lock.yaml
+*.db
+*.db-shm
+*.db-wal

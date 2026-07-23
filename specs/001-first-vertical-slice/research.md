@@ -127,15 +127,26 @@ automatización falle.
 
 ## Hardware de referencia
 
-**Decision**: Validar inicialmente en Windows 11 x64, CPU de 8 núcleos moderna
-(Intel Core i7 12ª generación/Ryzen 7 5700X o superior), 32 GB RAM, GPU dedicada
-equivalente a RTX 3060, SSD y pantalla/salida 1920x1080p60.
+**Decision**: Usar como referencia inicial el equipo real de producción:
 
-**Rationale**: Es una referencia reproducible para desarrollo y no un requisito
-mínimo comercial. Permite medir la aplicación junto con vMix bajo carga
-realista.
+- ASUS TUF Gaming A16 FA607NUG.
+- Windows 11 Home Single Language x64, build 26200.
+- AMD Ryzen 7 7445HS, 6 núcleos y 12 hilos.
+- 16 GB DDR5-5600.
+- NVIDIA GeForce RTX 4050 Laptop GPU de 6 GB, driver 573.05.
+- SSD NVMe de 512 GB y SSD NVMe de 1 TB.
+- Adaptador Ethernet activo a 1 Gbps.
+- vMix Max 29.0.0.48 y salida 1920x1080p30.
+
+**Rationale**: Este inventario describe el primer entorno real de desarrollo y
+operación, no un requisito mínimo comercial. Permite medir la aplicación junto
+con vMix bajo una carga reproducible. Los 16 GB de RAM hacen especialmente
+importante registrar memoria disponible y presión de memoria durante la prueba
+de dos horas antes de declarar el equipo apto para una final.
 
 **Alternatives considered**:
 
+- Mantener una referencia teórica de 32 GB y RTX 3060: descartado como criterio
+  inicial porque no representa el equipo disponible.
 - Publicar requisitos mínimos sin benchmarks: rechazado.
 - Validar solo la aplicación sin vMix: insuficiente para el ciclo vertical.

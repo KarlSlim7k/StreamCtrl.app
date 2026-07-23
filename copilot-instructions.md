@@ -125,7 +125,7 @@ debe estar siempre disponible como acción de emergencia.
 El overlay debe:
 
 - Tener fondo transparente y un viewport lógico 1920x1080.
-- Mantener 60 fps en el hardware objetivo.
+- Mantener 30 fps en el hardware objetivo.
 - Respetar safe areas.
 - Limpiar timelines, timers y listeners.
 - Reconstruirse únicamente con un snapshot.
